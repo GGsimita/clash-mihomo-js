@@ -113,7 +113,7 @@ const dnsConfig = {
       behavior: "classical",
       format: "yaml",
       url: "https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/edgepub.yaml",
-      path: "./rulesets/loyalsoldier/microsoft.mrs",
+      path: "./rulesets/loyalsoldier/edgepub.yaml",
     },
     pornhub: {
       ...ruleProviderCommon,
