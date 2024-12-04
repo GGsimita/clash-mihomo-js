@@ -1,4 +1,10 @@
-  // DNS配置
+ // ntpConfig:
+const ntpConfig = {
+  "enable": true,
+  "write-to-system": true,
+};
+
+// DNS配置
 const dnsConfig = {
   "enable": true,
   "listen": "0.0.0.0:1053",
