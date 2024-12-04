@@ -108,12 +108,6 @@ const dnsConfig = {
       url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/adobe.mrs",
       path: "./rulesets/loyalsoldier/adobe.mrs",
     },
-    Copilot: {
-      ...ruleProviderCommon,
-      behavior: "classical",
-      url: "https://github.com/blackmatrix7/ios_rule_script/blob/master/rule/Clash/OpenAI/OpenAI.yaml",
-      path: "./rulesets/loyalsoldier/Copilot.yaml",
-    },
     github: {
       ...ruleProviderCommon,
       behavior: "domain",
@@ -253,7 +247,6 @@ const dnsConfig = {
     "RULE-SET,bing,Bing",
     "RULE-SET,onedrive,Onedrive",
     "RULE-SET,microsoft,微软服务",
-    "RULE-SET,Copilot,Copilot",
     "RULE-SET,adobe,Adobe",
     "RULE-SET,pornhub,Pornhub",
     "RULE-SET,bilibili,Bilibili",
@@ -385,14 +378,6 @@ const dnsConfig = {
         proxies: ["全局直连",],
         "include-all": true,
         icon: "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Speedtest.png",
-      },
-      {
-        ...groupBaseOption,
-        name: "Copilot",
-        type: "select",
-        "include-all": true,
-        filter: "^(?!(.*尼日)).*(美|日|JP|US|Chat|jp|us).*",
-        icon: "https://www.clashverge.dev/assets/icons/Copilot.svg",
       },
       {
         ...groupBaseOption,
