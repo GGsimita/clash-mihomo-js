@@ -226,7 +226,7 @@ const dnsConfig = {
     // Loyalsoldier 规则集
     "RULE-SET,proxydns,ProxyDNS",
     "RULE-SET,speedtest,Speedtest",
-    "RULE-SET,edgepub,微软服务",
+    "RULE-SET,edgepub,edgepub",
     "RULE-SET,adobe,Adobe",
     "RULE-SET,pornhub,Pornhub",
     "RULE-SET,bilibili,Bilibili",
@@ -361,7 +361,7 @@ const dnsConfig = {
       },
       {
         ...groupBaseOption,
-        name: "Github",
+        name: "edgepub",
         type: "select",
         proxies: [
           "节点选择",
@@ -486,40 +486,6 @@ const dnsConfig = {
           "全局直连",
         ],
         icon: "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/telegram.svg",
-      },
-      {
-        ...groupBaseOption,
-        name: "Bing",
-        type: "select",
-        proxies: [
-          "全局直连",
-          "节点选择",
-          "手动选择",
-          "手动选择备用",
-          "自建节点",
-          "延迟选优",
-          "故障转移",
-          "负载均衡(散列)",
-          "负载均衡(轮询)",
-        ],
-        icon: "https://www.bing.com/favicon.ico",
-      },
-      {
-        ...groupBaseOption,
-        name: "Onedrive",
-        type: "select",
-        proxies: [
-          "全局直连",
-          "节点选择",
-          "手动选择",
-          "手动选择备用",
-          "自建节点",
-          "延迟选优",
-          "故障转移",
-          "负载均衡(散列)",
-          "负载均衡(轮询)",
-        ],
-        icon: "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/OneDrive.png",
       },
       {
         ...groupBaseOption,
