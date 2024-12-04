@@ -108,28 +108,11 @@ const dnsConfig = {
       url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/adobe.mrs",
       path: "./rulesets/loyalsoldier/adobe.mrs",
     },
-    github: {
+    edgepub: {
       ...ruleProviderCommon,
-      behavior: "domain",
-      url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/github.mrs",
-      path: "./rulesets/loyalsoldier/github.mrs",
-    },
-    bing: {
-      ...ruleProviderCommon,
-      behavior: "domain",
-      url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/bing.mrs",
-      path: "./rulesets/loyalsoldier/bing.mrs",
-    },
-    onedrive: {
-      ...ruleProviderCommon,
-      behavior: "domain",
-      url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/onedrive.mrs",
-      path: "./rulesets/loyalsoldier/onedrive.mrs",
-    },
-    microsoft: {
-      ...ruleProviderCommon,
-      behavior: "domain",
-      url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft.mrs",
+      behavior: "classical",
+      format: "yaml",
+      url: "https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/edgepub.yaml",
       path: "./rulesets/loyalsoldier/microsoft.mrs",
     },
     pornhub: {
@@ -246,7 +229,7 @@ const dnsConfig = {
     "RULE-SET,github,Github",
     "RULE-SET,bing,Bing",
     "RULE-SET,onedrive,Onedrive",
-    "RULE-SET,microsoft,微软服务",
+    "RULE-SET,edgepub,微软服务",
     "RULE-SET,adobe,Adobe",
     "RULE-SET,pornhub,Pornhub",
     "RULE-SET,bilibili,Bilibili",
