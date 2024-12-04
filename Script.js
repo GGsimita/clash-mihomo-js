@@ -227,9 +227,6 @@ const dnsConfig = {
     // Loyalsoldier 规则集
     "RULE-SET,proxydns,ProxyDNS",
     "RULE-SET,speedtest,Speedtest",
-    "RULE-SET,github,Github",
-    "RULE-SET,bing,Bing",
-    "RULE-SET,onedrive,Onedrive",
     "RULE-SET,edgepub,微软服务",
     "RULE-SET,adobe,Adobe",
     "RULE-SET,pornhub,Pornhub",
