@@ -3,8 +3,7 @@ const ntpConfig = {
   "enable": true,
   "write-to-system": true,
 };
-// 覆盖原配置中的规则
-  config["ntp"] = ntpConfig;
+
 // DNS配置
 const dnsConfig = {
   "enable": true,
