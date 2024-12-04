@@ -1,4 +1,4 @@
-自用clash-verge配置覆写脚本
+自用clash-verge/mihomo-party配置覆写脚本
 
 # 代理组
 - Speedtest
