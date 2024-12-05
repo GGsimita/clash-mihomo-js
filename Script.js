@@ -293,19 +293,48 @@ const dnsConfig = {
             "skip-domain": ["Mijia Cloud", "+.oray.com"],
         },
     
-    config["unified-delay"] = true; //统一延迟
-    config["tcp-concurrent"] = true; //TCP 并发
+    //config["unified-delay"] = true; //统一延迟
+    //config["tcp-concurrent"] = true; //TCP 并发
 
     config["profile"] = {
     "store-selected": true,
     "store-fake-ip": true,
    };
    
-
+  // 覆盖通用配置
+  config["mixed-port"] = "7890";
+  config["tcp-concurrent"] = true;//TCP 并发
+  config["allow-lan"] = true;
+  config["ipv6"] = true;
+  config["log-level"] = "info";//日志等级
+  config["unified-delay"] = "true";//统一延迟
+  config["find-process-mode"] = "strict";
+  config["global-client-fingerprint"] = "chrome";
+  config["external-controller"] = "127.0.0.1:9090";
+  config["external-ui"] = "ui";
+  config["external-ui-url"] = "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip";
+  // 覆盖 geodata 配置
+  config["geodata-mode"] = true;
+  config["geox-url"] = {
+    //"geoip": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat",
+    "geoip": "https://raw.githubusercontent.com/Masaiki/GeoIP2-CN/release/Country.mmdb",
+    "geosite": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat",
+    "mmdb": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb",
+    //"asn": "https://mirror.ghproxy.com/https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
+    "asn": "https://raw.githubusercontent.com/P3TERX/GeoLite.mmdb/download/GeoLite2-ASN.mmdb"
+  };
+  // 覆盖 tun 配置
+  config["tun"] = {
+    "enable": true,
+    "stack": "mixed",
+    "dns-hijack": ["any:53"]
+  };
   
     // 覆盖原配置中DNS配置
   config["dns"] = dnsConfig;
-  
+    // 覆盖原配置中DNS配置
+  config["ntp"] = ntpConfig;
+
     // 覆盖原配置中的代理组
     config["proxy-groups"] = [
       {
