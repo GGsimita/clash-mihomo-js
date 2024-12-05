@@ -11,6 +11,9 @@ payload:
   - DOMAIN,store-images.s-microsoft.com
   //命运2centipede
   - DOMAIN-SUFFIX,cdn.deadorbit.net 
+  //命运2账号验证
+  - DOMAIN-SUFFIX,www.bungie.net
+  - DOMAIN-SUFFIX,app.destinyitemmanager.com
   - DOMAIN-SUFFIX,battle.net
   - DOMAIN-SUFFIX,battlenet.com.cn
   - DOMAIN-SUFFIX,blizzard.com
