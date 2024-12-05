@@ -191,8 +191,9 @@ const dnsConfig = {
     },
     telegramcidr: {
       ...ruleProviderCommon,
-      behavior: "ipcidr",
-      url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/telegram.mrs",
+      behavior: "classical",
+      format: "yaml",
+      url: "https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/telegram.yaml",
       path: "./rulesets/loyalsoldier/telegramcidr.mrs",
     },
     cncidr: {
