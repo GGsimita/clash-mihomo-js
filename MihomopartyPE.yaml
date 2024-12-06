@@ -219,20 +219,20 @@ rules:
   - RULE-SET,ChinaDomain,DIRECT,no-resolve
   - RULE-SET,Lan,DIRECT,no-resolve
   # 自定义规则
-  - DOMAIN-SUFFIX,aca.best,Proxy
-  - DOMAIN-SUFFIX,acaisbest.com,Proxy
-  - DOMAIN-SUFFIX,122777.xyz,Proxy
-  - DOMAIN-SUFFIX,12345.al,Proxy
+  - DOMAIN-SUFFIX,aca.best,手动切换
+  - DOMAIN-SUFFIX,acaisbest.com,手动切换
+  - DOMAIN-SUFFIX,122777.xyz,手动切换
+  - DOMAIN-SUFFIX,12345.al,手动切换
     # Google服务
-  - DOMAIN-SUFFIX,googleapis.cn,Proxy
+  - DOMAIN-SUFFIX,googleapis.cn,手动切换
     # Google静态资源
-  - DOMAIN-SUFFIX,gstatic.com,Proxy
+  - DOMAIN-SUFFIX,gstatic.com,手动切换
     # Google Play下载服务
-  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,Proxy
+  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,手动切换
     # Github Pages
-  - DOMAIN-SUFFIX,github.io,Proxy
+  - DOMAIN-SUFFIX,github.io,手动切换
     # V2rayse节点工具
-  - DOMAIN,v2rayse.com,Proxy
+  - DOMAIN,v2rayse.com,手动切换
   - DOMAIN-SUFFIX,op.gg,DIRECT
   - DOMAIN,opgg-static.akamaized.net,DIRECT
   - DOMAIN-SUFFIX,250941.xyz,DIRECT
