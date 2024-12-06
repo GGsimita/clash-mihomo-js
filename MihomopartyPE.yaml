@@ -81,15 +81,15 @@ dns:
 # 策略组引用相关参数
 pg: &pg {type: select, proxies: [手动切换, 香港节点, 美国节点, 狮城节点, 日本节点, 台湾节点, DIRECT]}
 # 订阅更新和延迟测试相关参数
-p: &p {type: http, interval: 86400, health-check: {enable: true, url: http://latency-test.skk.moe/endpoint, interval: 1800}}
+p: &p {type: http, interval: 86400, health-check: {enable: true, url: http://google.com, interval: 1800}}
 # 自动选择策略组：选取延迟最低节点
-auto: &auto {type: url-test, lazy: true, url: http://latency-test.skk.moe/endpoint, interval: 300, tolerance: 50, include-all-providers: true}
+auto: &auto {type: url-test, lazy: true, url: http://google.com, interval: 300, tolerance: 50, include-all-providers: true}
 # 手动选择策略组：手动选择想要的节点/策略组
 select: &select {type: select, include-all-providers: true}
 # 故障回退策略组：策略组将按顺序选择你列表中第一个可用的节点
-fallback: &fallback {type: fallback, lazy: true, url: http://latency-test.skk.moe/endpoint, interval: 300, include-all-providers: true}
+fallback: &fallback {type: fallback, lazy: true, url: http://google.com, interval: 300, include-all-providers: true}
 # 负载均衡策略组：不同的请求将使用不同的代理节点
-load-balance: &load-balance {type: load-balance, lazy: true, strategy: consistent-hashing, url: http://latency-test.skk.moe/endpoint, interval: 300, include-all-providers: true}
+load-balance: &load-balance {type: load-balance, lazy: true, strategy: consistent-hashing, url: http://google.com, interval: 300, include-all-providers: true}
 # classical规则相关
 c: &c {type: http, behavior: classical, interval: 86400}
 # domain规则相关
