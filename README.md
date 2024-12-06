@@ -5,6 +5,6 @@
 
 可莉的geoip和asn数据库：
 
-MMDB数据库：https://geodata.kelee.one/Country-Masaiki.mmdb
+        MMDB数据库：https://geodata.kelee.one/Country-Masaiki.mmdb
 
-ASN数据库：https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb
+        ASN数据库：https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb
