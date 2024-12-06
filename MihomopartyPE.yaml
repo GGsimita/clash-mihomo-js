@@ -98,8 +98,8 @@ d: &d {type: http, behavior: domain, interval: 86400}
 i: &i {type: http, behavior: ipcidr, interval: 86400}
 
 proxy-providers:
-  Subscribe: {<<: *p, path: ./proxy-providers/Sub.yaml, url:}
-    # Sub-Store生成的链接或机场订阅,可以直接放到URL:后面
+  Subscribe: {<<: *p, path: ./proxy-providers/Sub.yaml, url:https://lianjiasub.work/api/v1/client/subscribe?token=9938768ad1fb1843013399ec700fc919}
+    # Sub-Store生成的链接或机场订阅,可以替换https://lianjiasub.work/api/v1/client/subscribe?token=9938768ad1fb1843013399ec700fc919
 
 proxy-groups:
 
@@ -107,45 +107,45 @@ proxy-groups:
 
   - {name: 手动切换, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 台湾节点, DIRECT], icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Proxy.png}
 
-  - {name: Telegram, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png}
+  - {name: Telegram, <<: *load-balance, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png}
 
-  - {name: Twitter, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Twitter.png}
+  - {name: Twitter, <<: *load-balance, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Twitter.png}
 
-  - {name: Instagram, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Instagram.png}
+  - {name: Instagram, <<: *load-balance, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Instagram.png}
 
-  - {name: Facebook, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Facebook.png}
+  - {name: Facebook, <<: *load-balance, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Facebook.png}
 
-  - {name: Discord, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Discord.png}
+  - {name: Discord, <<: *load-balance, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Discord.png}
 
-  - {name: YouTube, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png}
+  - {name: YouTube, <<: *load-balance, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png}
   
-  - {name: Google, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Google_Search.png}
+  - {name: Google, <<: *load-balance, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Google_Search.png}
 
-  - {name: Pixiv, <<: *pg, icon: https://raw.githubusercontent.com/LGMjiang/Tool/main/Clash/Icon/Pixiv.png}
+  - {name: Pixiv, <<: *load-balance, icon: https://raw.githubusercontent.com/LGMjiang/Tool/main/Clash/Icon/Pixiv.png}
 
-  - {name: Reddit, <<: *pg, icon: https://raw.githubusercontent.com/LGMjiang/Tool/main/Clash/Icon/Reddit.png}
+  - {name: Reddit, <<: *load-balance, icon: https://raw.githubusercontent.com/LGMjiang/Tool/main/Clash/Icon/Reddit.png}
 
-  - {name: Microsoft, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png}
+  - {name: Microsoft, <<: *load-balance, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png}
 
-  - {name: Apple, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_1.png}
+  - {name: Apple, <<: *load-balance, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_1.png}
 
-  - {name: Global, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png}
+  - {name: Global, <<: *auto, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png}
 
-  - {name: Game, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png}
+  - {name: Game, <<: *load-balance, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png}
 
-  - {name: StreamMedia, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Streaming.png}
+  - {name: StreamMedia, <<: *load-balance, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Streaming.png}
 
-  - {name: 兜底分流, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color//Final.png}
+  - {name: 兜底分流, <<: *fallback, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color//Final.png}
 
-  - {name: 香港节点, <<: *auto, filter: '^(?=.*((?i)🇭🇰|香港|(\b(HK|Hong)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png}
+  - {name: 香港节点, <<: *fallback, filter: '^(?=.*((?i)🇭🇰|香港|(\b(HK|Hong)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png}
 
-  - {name: 美国节点, <<: *auto, filter: '^(?=.*((?i)🇺🇸|美国|(\b(US|USA|United States)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png}
+  - {name: 美国节点, <<: *fallback, filter: '^(?=.*((?i)🇺🇸|美国|(\b(US|USA|United States)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png}
 
-  - {name: 狮城节点, <<: *auto, filter: '^(?=.*((?i)🇸🇬|新加坡|狮|(\b(SG|Singapore)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - {name: 狮城节点, <<: *fallback, filter: '^(?=.*((?i)🇸🇬|新加坡|狮|(\b(SG|Singapore)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
 
-  - {name: 日本节点, <<: *auto, filter: '^(?=.*((?i)🇯🇵|日本|(\b(JP|Japan)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png}
+  - {name: 日本节点, <<: *fallback, filter: '^(?=.*((?i)🇯🇵|日本|(\b(JP|Japan)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png}
 
-  - {name: 台湾节点, <<: *auto, filter: '^(?=.*((?i)🇹🇼|台湾|(\b(TW|Tai|Taiwan)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png}
+  - {name: 台湾节点, <<: *fallback, filter: '^(?=.*((?i)🇹🇼|台湾|(\b(TW|Tai|Taiwan)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png}
 
 rule-providers:
   # 去广告
