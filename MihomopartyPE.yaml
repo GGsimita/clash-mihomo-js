@@ -97,128 +97,15 @@ d: &d {type: http, behavior: domain, interval: 86400}
 # ipcidr规则相关
 i: &i {type: http, behavior: ipcidr, interval: 86400}
 
-proxies:
-- name: "🇭🇰Akile HKSM hy2 🅑"
-  type: hysteria2
-  server: 
-  port: 
-  password: 
-  up: "30 Mbps"
-  down: "100 Mbps"
-  sni: 
-  skip-cert-verify: false
-
-- name: "🇭🇰Akile HKG 🅑"
-  type: ss
-  server: 
-  port: 
-  cipher: 2022-blake3-aes-256-gcm
-  password: ""
-  udp: true
-  plugin: shadow-tls
-  client-fingerprint: chrome
-  plugin-opts:
-    host: ""
-    password: ""
-    version: 3
-
-- name: "🇭🇰Akile HKSM 🅑"
-  type: ss
-  server: 
-  port: 
-  cipher: 2022-blake3-aes-256-gcm
-  password: ""
-  udp: true
-  plugin: shadow-tls
-  client-fingerprint: chrome
-  plugin-opts:
-    host: ""
-    password: ""
-    version: 3
-
-- name: "🇭🇰Claw 🅑"
-  type: ss
-  server: 
-  port: 
-  cipher: 2022-blake3-aes-256-gcm
-  password: ""
-  udp: true
-  plugin: shadow-tls
-  client-fingerprint: chrome
-  plugin-opts:
-    host: ""
-    password: ""
-    version: 3
-
-- name: "🇭🇰HKG-Claw 🅒"
-  type: ss
-  server: 
-  port: 
-  cipher: 2022-blake3-aes-256-gcm
-  password: ""
-  udp: true
-  dialer-proxy: 🇭🇰Claw 🅑
-  plugin: shadow-tls
-  client-fingerprint: chrome
-  plugin-opts:
-    host: ""
-    password: ""
-    version: 3
-
-- name: "🇭🇰HKSM-Claw 🅒"
-  type: ss
-  server: 
-  port: 
-  cipher: 2022-blake3-aes-256-gcm
-  password: ""
-  udp: true
-  dialer-proxy: 🇭🇰Claw 🅑
-  plugin: shadow-tls
-  client-fingerprint: chrome
-  plugin-opts:
-    host: ""
-    password: ""
-    version: 3
-
-- name: "🇯🇵Akile JPS 🅑"
-  type: ss
-  server: 
-  port: 
-  cipher: 2022-blake3-aes-256-gcm
-  password: ""
-  udp: true
-  plugin: shadow-tls
-  client-fingerprint: chrome
-  plugin-opts:
-    host: ""
-    password: ""
-    version: 3
-
-- name: "🇯🇵JPS-Claw 🅒"
-  type: ss
-  server: 
-  port: 
-  cipher: 2022-blake3-aes-256-gcm
-  password: ""
-  udp: true
-  dialer-proxy: 🇭🇰Claw 🅑
-  plugin: shadow-tls
-  client-fingerprint: chrome
-  plugin-opts:
-    host: ""
-    password: ""
-    version: 3
-
 proxy-providers:
   Subscribe: {<<: *p, path: ./proxy-providers/Sub.yaml, url:}
-    # 在此将"http://your-service-provider"替换为你的机场订阅，推荐使用base64或者node list
-    # Sub-Store生成的链接,可以直接替换上述url引号中的部分,具体见Sub-Store教程         
+    # Sub-Store生成的链接或机场订阅,可以直接放到URL:后面
 
 proxy-groups:
 
   #分流分组
 
-  - {name: Proxy, type: select, proxies: [Hong Kong, United States, Singapore, Japan, Taiwan, 🇭🇰HKSM-ClawHK 🅒, 🇭🇰HKG-ClawHK 🅒, 🇭🇰Claw 🅑, 🇯🇵JPS-ClawJP 🅒, 🇯🇵JPS-ClawHK 🅒, 🇸🇬Claw 🅑, 🇯🇵Claw 🅑, 🇭🇰Akile HKSM 🅑, 🇭🇰Akile HKG 🅑, 🇭🇰Akile HKSM hy2 🅑, 🇯🇵Akile JPS 🅑, DIRECT], icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Proxy.png}
+  - {name: Proxy, type: select, proxies: [香港节点, 美国节点, 新坡节点, 日本节点, 台湾节点, DIRECT], icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Proxy.png}
 
   - {name: Telegram, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png}
 
@@ -248,21 +135,21 @@ proxy-groups:
 
   - {name: StreamMedia, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Streaming.png}
 
-  - {name: 漏网之鱼, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color//Final.png}
+  - {name: 兜底分流, <<: *pg, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color//Final.png}
 
-  #节点地区分组
+  - {name: 香港节点, <<: *auto, filter: '^(?=.*((?i)🇭🇰|香港|(\b(HK|Hong)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png}
 
-  - {name: Hong Kong, <<: *fallback, filter: '^(?=.*((?i)🇭🇰|香港|(\b(HK|Hong)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png}
+  - {name: 美国节点, <<: *auto, filter: '^(?=.*((?i)🇺🇸|美国|(\b(US|USA|United States)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png}
 
-  - {name: United States, <<: *fallback, filter: '^(?=.*((?i)🇺🇸|美国|(\b(US|USA|United States)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png}
+  - {name: 新坡节点, <<: *auto, filter: '^(?=.*((?i)🇸🇬|新加坡|狮|(\b(SG|Singapore)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
 
-  - {name: Singapore, <<: *fallback, filter: '^(?=.*((?i)🇸🇬|新加坡|狮|(\b(SG|Singapore)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - {name: 日本节点, <<: *auto, filter: '^(?=.*((?i)🇯🇵|日本|(\b(JP|Japan)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png}
 
-  - {name: Japan, <<: *fallback, filter: '^(?=.*((?i)🇯🇵|日本|(\b(JP|Japan)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png}
-
-  - {name: Taiwan, <<: *fallback, filter: '^(?=.*((?i)🇹🇼|台湾|(\b(TW|Tai|Taiwan)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png}
+  - {name: 台湾节点, <<: *auto, filter: '^(?=.*((?i)🇹🇼|台湾|(\b(TW|Tai|Taiwan)\b)))(?!.*((?i)劫持|家宽|Lite|lite|LITE|Home|home|HOME|IEPL|iepl|Emby|EBMY|((0\.\d)|(\d\.0)))).*$', icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png}
 
 rule-providers:
+  # 去广告
+  AD: {<<: *c, path: ./rules/AD.list, url: https://github.com/Repcz/Tool/raw/X/Clash/Rules/Reject.list}
 
   # Lan
   Lan: {<<: *c, format: text, path: ./rule-providers/Lan.list,  url: https://github.com/Repcz/Tool/raw/X/Clash/Rules/Lan.list}
@@ -314,6 +201,7 @@ rule-providers:
 rules:
   #- SCRIPT,quic,REJECT
   # 规则集
+  - RULE-SET,AD,REJECT
   - RULE-SET,Microsoft,Microsoft
   - RULE-SET,YouTube,YouTube
   - RULE-SET,Google,Google
@@ -350,7 +238,7 @@ rules:
   - DOMAIN-SUFFIX,250941.xyz,DIRECT
   - GEOIP,CN,DIRECT,no-resolve
   - GEOIP,LAN,DIRECT,no-resolve
-  - MATCH,漏网之鱼
+  - MATCH,兜底分流
 
 script:
   shortcuts:
