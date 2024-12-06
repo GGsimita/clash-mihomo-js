@@ -317,11 +317,11 @@ const dnsConfig = {
   config["geodata-mode"] = true;
   config["geox-url"] = {
     "geoip": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat",
-    //"geoip": "https://raw.githubusercontent.com/Masaiki/GeoIP2-CN/release/Country.mmdb",
     "geosite": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat",
-    "mmdb": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb",
-    "asn": "https://mirror.ghproxy.com/https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
-    //"asn": "https://raw.githubusercontent.com/P3TERX/GeoLite.mmdb/download/GeoLite2-ASN.mmdb"
+    //"mmdb": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb",
+    //"asn": "https://mirror.ghproxy.com/https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
+    "mmdb": "https://geodata.kelee.one/Country-Masaiki.mmdb",
+    "asn": "https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb"
   };
   // 覆盖 tun 配置
   config["tun"] = {
