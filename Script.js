@@ -112,7 +112,7 @@ const dnsConfig = {
       ...ruleProviderCommon,
       behavior: "classical",
       format: "yaml",
-      url: "https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/edgepub.yaml",
+      url: "https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/Script-pub/edgepub.yaml",
       path: "./rulesets/loyalsoldier/edgepub.yaml",
     },
     pornhub: {
@@ -156,7 +156,7 @@ const dnsConfig = {
       ...ruleProviderCommon,
       behavior: "classical",
       format: "yaml",
-      url: "https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/gamepub.yaml",
+      url: "https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/Script-pub/gamepub.yaml",
       path: "./rulesets/loyalsoldier/steam.yaml",
     },
     proxy: {
@@ -193,7 +193,7 @@ const dnsConfig = {
       ...ruleProviderCommon,
       behavior: "classical",
       format: "yaml",
-      url: "https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/telegram.yaml",
+      url: "https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/Script-pub/telegram.yaml",
       path: "./rulesets/loyalsoldier/telegramcidr.mrs",
     },
     cncidr: {
