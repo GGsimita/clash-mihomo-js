@@ -10,6 +10,4 @@
         ASN数据库：https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb
         
 
-深巷有喵的仓库：https://github.com/Rabbit-Spec
-
 mihomoparty在换一个全局覆写之后，需要切换一下核心重启一下软件，最好sub里面也清理一下前端数据
