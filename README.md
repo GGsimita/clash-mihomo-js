@@ -1,4 +1,4 @@
-![image](https://github.com/ZhengYaWei1992/ZWProgressView/blob/master/Untitled3.gif)
+![image](https://github.com/GGsimita/clash-mihomo-js/blob/main/PYP.gif)
 
 自用clash-verge/mihomo-party配置覆写脚本
 
