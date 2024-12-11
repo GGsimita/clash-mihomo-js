@@ -200,10 +200,10 @@ i: &i {type: http, behavior: ipcidr, format: text, interval: 86400}
 
 proxy-groups:
 #分流分组
+  - {name: 手动切换, <<: *select, proxies: [代理模式, 直连模式], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Bywave.png }
+  - {name: 手动策略, <<: *pg, proxies: [直连模式, 香港节点, 美国节点, 日本节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/GLaDOS.png }
   - {name: 代理模式, <<: *pg, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Catnet.png }
   - {name: 直连模式, <<: *pg, proxies: [DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Rookie.png }
-  - {name: 苹果服务, <<: *pg, proxies: [直连模式, 香港节点, 美国节点, 日本节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/GLaDOS.png }
-  - {name: 漏网之鱼, <<: *select, proxies: [代理模式, 直连模式], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Bywave.png }
   #- {name: 广告拦截, type: select, proxies: [REJECT, DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Boom. png }
   
   
@@ -233,7 +233,7 @@ rule-providers:
 rules:
   #- RULE-SET,AdBlock,广告拦截
   - RULE-SET,OpenAi,代理模式
-  - RULE-SET,Apple,苹果服务
+  - RULE-SET,Apple,手动策略
   - RULE-SET,Github,代理模式
   - RULE-SET,Microsoft,代理模式
   - RULE-SET,Google,代理模式
@@ -245,4 +245,4 @@ rules:
   - GEOIP,Lan,直连模式
   - RULE-SET,Lan,直连模式
   - GEOIP,CN,直连模式
-  - MATCH,漏网之鱼
+  - MATCH,手动切换
