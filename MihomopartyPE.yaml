@@ -184,7 +184,7 @@ pg: &pg {type: select, proxies: [香港节点, 美国节点, 日本节点, 台�
 # 订阅更新和延迟测试相关参数
 p: &p {type: http, interval: 3600, health-check: {enable: true, url: http://google/generate_204, interval: 60}}
 # 时延优选策略组：选取延迟最低节点
-url-test: &url-test {type: url-test, lazy: true, url: http://google/generate_204, interval: 300, tolerance: 0, include-all: true}
+url-test: &url-test {type: url-test, lazy: true, url: http://google/generate_204, interval: 300, tolerance: 30, include-all: true}
 # 手动选择策略组：手动选择想要的节点/策略组
 select: &select {type: select, include-all: true}
 # 故障回退策略组：策略组将按顺序选择你列表中第一个可用的节点
@@ -200,9 +200,9 @@ i: &i {type: http, behavior: ipcidr, format: text, interval: 86400}
 
 proxy-groups:
 #分流分组
-  - {name: 代理模式, <<: *fallback, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Catnet.png }
-  - {name: 直连模式, <<: *fallback, proxies: [DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Rookie.png }
-  - {name: 苹果服务, <<: *fallback, proxies: [直连模式, 香港节点, 美国节点, 日本节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/GLaDOS.png }
+  - {name: 代理模式, <<: *pg, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Catnet.png }
+  - {name: 直连模式, <<: *pg, proxies: [DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Rookie.png }
+  - {name: 苹果服务, <<: *pg, proxies: [直连模式, 香港节点, 美国节点, 日本节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/GLaDOS.png }
   - {name: 漏网之鱼, <<: *select, proxies: [代理模式, 直连模式], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Bywave.png }
   #- {name: 广告拦截, type: select, proxies: [REJECT, DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Boom. png }
   
