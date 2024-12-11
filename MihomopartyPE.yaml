@@ -221,13 +221,13 @@ rules:
   #- RULE-SET,AdBlock,广告拦截
   - RULE-SET,OpenAi,人工智能
   - RULE-SET,Apple,苹果服务
-  - RULE-SET,Github,开源社区
+  - RULE-SET,Github,GitH社区
   - RULE-SET,Microsoft,微软服务
   - RULE-SET,Google,谷歌应用
   - RULE-SET,游戏下载cn,国内站点
   - RULE-SET,游戏下载,谷歌应用
-  - RULE-SET,游戏加速,谷歌应用
-  - RULE-SET,telegram,谷歌应用
+  - RULE-SET,游戏加速,GitH社区
+  - RULE-SET,telegram,GitH社区
   - RULE-SET,Pixiv,谷歌应用
   - GEOIP,Lan,国内站点
   - RULE-SET,Lan,国内站点
