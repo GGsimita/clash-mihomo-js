@@ -180,27 +180,40 @@ hosts:
   'mihomo.mihomo': 127.0.0.1
 
 #### 策略组引用相关参数 ####
+pg: &pg {type: select, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点, DIRECT, REJECT]}
+# 订阅更新和延迟测试相关参数
+p: &p {type: http, interval: 3600, health-check: {enable: true, url: http://google/generate_204, interval: 60}}
+# 时延优选策略组：选取延迟最低节点
+url-test: &url-test {type: url-test, lazy: true, url: http://google/generate_204, interval: 300, tolerance: 0, include-all: true}
+# 手动选择策略组：手动选择想要的节点/策略组
+select: &select {type: select, include-all: true}
+# 故障回退策略组：策略组将按顺序选择你列表中第一个可用的节点
+fallback: &fallback {type: fallback, lazy: true, url: http://google/generate_204, interval: 300, include-all: true}
+# 负载均衡策略组：不同的请求将使用不同的代理节点
+load-balance: &load-balance {type: load-balance, lazy: true, strategy: consistent-hashing, url: http://google/generate_204, interval: 300, include-all: true}
+# classical规则相关
+c: &c {type: http, behavior: classical, format: text, interval: 86400}
+# domain规则相关
+d: &d {type: http, behavior: domain, format: text, interval: 86400}
+# ipcidr规则相关
+i: &i {type: http, behavior: ipcidr, format: text, interval: 86400}
+
 proxy-groups:
 #分流分组
-  - {name: 代理模式, type: select, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Catnet.png }
-  - {name: 直连模式, type: select, proxies: [DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Rookie.png }
-  - {name: 国内站点, type: select, proxies: [直连模式, 代理模式], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/StreamingCN.png }
-  - {name: 人工智能, type: select, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/STC.png }
-  - {name: GitH社区, type: select, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Godetia.png }
-  - {name: 微软服务, type: select, proxies: [代理模式, 直连模式], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Pacifique.png }
-  - {name: 谷歌应用, type: select, proxies: [代理模式, 直连模式], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Dukou.png }
-  - {name: 苹果服务, type: select, proxies: [直连模式, 香港节点, 美国节点, 日本节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/GLaDOS.png }
-  - {name: 漏网之鱼, type: select, proxies: [代理模式, 直连模式], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Bywave.png }
+  - {name: 代理模式, <<: *fallback, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Catnet.png }
+  - {name: 直连模式, <<: *fallback, proxies: [DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Rookie.png }
+  - {name: 苹果服务, <<: *fallback, proxies: [直连模式, 香港节点, 美国节点, 日本节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/GLaDOS.png }
+  - {name: 漏网之鱼, <<: *select, proxies: [代理模式, 直连模式], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Bywave.png }
   #- {name: 广告拦截, type: select, proxies: [REJECT, DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Boom. png }
   
   
 #节点分组
-  - {name: 香港节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "港|HK|(?i)Hong", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/HK02.png }             
-  - {name: 日本节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "日|东京|JP|(?i)Japan", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/JP.png }
-  - {name: 台湾节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "台|湾|TW|(?i)Taiwan", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/TW.png }
-  - {name: 美国节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "美|US|(?i)States|American", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/US.png }
-  - {name: 狮城节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "新|坡|SG|(?i)Singapore", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/SG.png }
-  - {name: 韩国节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "KR|Korea|KOR|韩国|韩|韓", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/KR.png }
+  - {name: 香港节点, <<: *url-test, filter: "港|HK|(?i)Hong", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/HK02.png }             
+  - {name: 日本节点, <<: *url-test,  filter: "日|东京|JP|(?i)Japan", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/JP.png }
+  - {name: 台湾节点, <<: *url-test,  filter: "台|湾|TW|(?i)Taiwan", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/TW.png }
+  - {name: 美国节点, <<: *url-test,  filter: "美|US|(?i)States|American", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/US.png }
+  - {name: 狮城节点, <<: *url-test,  filter: "新|坡|SG|(?i)Singapore", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/SG.png }
+  - {name: 韩国节点, <<: *url-test,  filter: "KR|Korea|KOR|韩国|韩|韓", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/KR.png }
 ###########################################################################################################################
 # 分流规则 
 rule-providers:
@@ -219,17 +232,17 @@ rule-providers:
 
 rules:
   #- RULE-SET,AdBlock,广告拦截
-  - RULE-SET,OpenAi,人工智能
+  - RULE-SET,OpenAi,代理模式
   - RULE-SET,Apple,苹果服务
-  - RULE-SET,Github,GitH社区
-  - RULE-SET,Microsoft,微软服务
-  - RULE-SET,Google,谷歌应用
-  - RULE-SET,游戏下载cn,国内站点
-  - RULE-SET,游戏下载,谷歌应用
-  - RULE-SET,游戏加速,GitH社区
-  - RULE-SET,telegram,GitH社区
-  - RULE-SET,Pixiv,谷歌应用
-  - GEOIP,Lan,国内站点
-  - RULE-SET,Lan,国内站点
-  - GEOIP,CN,国内站点
+  - RULE-SET,Github,代理模式
+  - RULE-SET,Microsoft,代理模式
+  - RULE-SET,Google,代理模式
+  - RULE-SET,游戏下载cn,直连模式
+  - RULE-SET,游戏下载,代理模式
+  - RULE-SET,游戏加速,代理模式
+  - RULE-SET,telegram,代理模式
+  - RULE-SET,Pixiv,代理模式
+  - GEOIP,Lan,直连模式
+  - RULE-SET,Lan,直连模式
+  - GEOIP,CN,直连模式
   - MATCH,漏网之鱼
