@@ -180,191 +180,56 @@ hosts:
   'mihomo.mihomo': 127.0.0.1
 
 #### 策略组引用相关参数 ####
-# 锚点 - 节点订阅的参数 [每12小时更新一次订阅节点，每 1800 秒（半个小时）一次健康检查]
-NodeParam: &NodeParam {type: http, interval: 42300, health-check: {enable: true, url: 'http://www.google.com/generate_204', interval: 1800}}
-# 锚点 - 节点订阅url 里填写自己的订阅,名称和path（文件位置）均不能重复
-########################################################################################################################################################################
-########################################################################################################################################################################
-proxy-providers-general: &proxy-providers-general
-  # 类型，可选http/file
-  type: http
-  interval: 86400
-  proxy: DIRECT
-  size-limit: 0
-  override:
-    # 启用TCP Fast Open，一般都不支持
-    tfo: false
-    # 启用TCP Multi Path，一般都不支持
-    mptcp: false
-    udp: true
-    # 启用 UDP over TCP
-    udp-over-tcp: false
-    # 跳过证书验证
-    skip-cert-verify: false
-proxy-providers: 
-  Subscribe: {<<: *NodeParam, path: ./proxy-providers/Sub.yaml, url: https://ovo.o00o.ooo/ooo}
-    # 在此将"https://ovo.o00o.ooo/ooo"替换为你的机场订阅，推荐使用 base64 或者 node list
-    # Sub-Store生成的链接,可以直接替换上述 url 引号中的部分,具体见 Sub-Store 教程
-use-all-proxy-providers: &use-all-proxy-providers
-  use:
-    #❗use-provider占位1
-    #❗use-provider占位2
-    #❗use-provider占位3
-    #❗use-provider占位4
-
-health-check-general: &health-check-general
-  <<: *use-all-proxy-providers
-  url: http://www.google.com/generate_204
-  interval: 30
-  tolerance: 200
-  lazy: true
-  timeout: 5000
-########################################################################################################################################################################
-########################################################################################################################################################################
-
-# 策略组
-#proxy-groups:
-#  - {name: ♻️自动选择, type: url-test, <<: *health-check-general}
-#  - {name: ⚠️自动回退, type: fallback, <<: *health-check-general}
-#  - {name: 🐟漏网之鱼, type: select, proxies: [DIRECT, ♻️自动选择, 🇭🇰香港节点, 🇨🇳台湾节点, 🇸🇬狮城节点, 🇯🇵日本节点, 🇺🇲美国节点, 🖐️手动切换]}
-#  - {name: 🖐️手动切换, type: select, <<: *use-all-proxy-providers}
-#  - {name: Ⓜ️微软Bing, type: select, proxies: [⚠️自动回退, ♻️自动选择, 🇭🇰香港节点, 🇨🇳台湾节点, 🇸🇬狮城节点, 🇯🇵日本节点, 🇺🇲美国节点, 🖐️手动切换, DIRECT]}
-#  - {name: 🤖OpenAi, type: select, proxies: [🇸🇬狮城节点, ♻️自动选择, 🇭🇰香港节点, 🇨🇳台湾节点, 🇯🇵日本节点, 🇺🇲美国节点, 🖐️手动切换]}
-#  - {name: 📞电报消息, type: select, proxies: [♻️自动选择, 🇭🇰香港节点, 🇨🇳台湾节点, 🇸🇬狮城节点, 🇯🇵日本节点, 🇺🇲美国节点, 🖐️手动切换]}
-######
-#  - {name: 🇭🇰香港节点, type: url-test, <<: *health-check-general, filter: "港|HK|hk|Hong Kong|HongKong|hongkong"}
-#  - {name: 🇯🇵日本节点, type: url-test, <<: *health-check-general, filter: "日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan"}
-#  - {name: 🇺🇲美国节点, type: url-test, <<: *health-check-general, filter: "美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States"}
-#  - {name: 🇨🇳台湾节点, type: url-test, <<: *health-check-general, filter: "台|新北|彰化|TW|Taiwan"}
-#  - {name: 🇸🇬狮城节点, type: url-test, <<: *health-check-general, filter: "新加坡|坡|狮城|SG|Singapore"}
-
-
 proxy-groups:
-  - name: ♻️自动选择
-    type: url-test
-    <<: *health-check-general
+#分流分组
+  - {name: 代理模式, type: select, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Catnet.png }
+  - {name: 直连模式, type: select, proxies: [DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Rookie.png }
+  - {name: 国内站点, type: select, proxies: [直连模式, 代理模式], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/StreamingCN.png }
+  - {name: 人工智能, type: select, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/STC.png }
+  - {name: GitH社区, type: select, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Godetia.png }
+  - {name: 微软服务, type: select, proxies: [代理模式, 直连模式], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Pacifique.png }
+  - {name: 谷歌应用, type: select, proxies: [代理模式, 直连模式], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Dukou.png }
+  - {name: 苹果服务, type: select, proxies: [直连模式, 香港节点, 美国节点, 日本节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/GLaDOS.png }
+  - {name: 漏网之鱼, type: select, proxies: [代理模式, 直连模式], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Bywave.png }
+  #- {name: 广告拦截, type: select, proxies: [REJECT, DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Boom. png }
   
-  - name: ⚠️自动回退
-    type: fallback
-    <<: *health-check-general
   
-  - name: 🐟漏网之鱼
-    type: select
-    proxies:
-      - DIRECT
-      - ♻️自动选择
-      - 🇭🇰香港节点
-      - 🇨🇳台湾节点
-      - 🇸🇬狮城节点
-      - 🇯🇵日本节点
-      - 🇺🇲美国节点
-      - 🖐️手动切换
-  
-  - name: 🖐️手动切换
-    type: select
-    <<: *use-all-proxy-providers
-  
-  - name: Ⓜ️微软Bing
-    type: select
-    proxies:
-      - ⚠️自动回退
-      - ♻️自动选择
-      - 🇭🇰香港节点
-      - 🇨🇳台湾节点
-      - 🇸🇬狮城节点
-      - 🇯🇵日本节点
-      - 🇺🇲美国节点
-      - 🖐️手动切换
-      - DIRECT
-  
-  - name: 🤖OpenAi
-    type: select
-    proxies:
-      - 🇸🇬狮城节点
-      - ♻️自动选择
-      - 🇭🇰香港节点
-      - 🇨🇳台湾节点
-      - 🇯🇵日本节点
-      - 🇺🇲美国节点
-      - 🖐️手动切换
-  
-  - name: 📞电报消息
-    type: select
-    proxies:
-      - ♻️自动选择
-      - 🇭🇰香港节点
-      - 🇨🇳台湾节点
-      - 🇸🇬狮城节点
-      - 🇯🇵日本节点
-      - 🇺🇲美国节点
-      - 🖐️手动切换
-  
-########################### 
-  - name: 🇭🇰香港节点
-    type: url-test
-    <<: *health-check-general
-    filter: "港|HK|hk|Hong Kong|HongKong|hongkong"
-  
-  - name: 🇯🇵日本节点
-    type: url-test
-    <<: *health-check-general
-    filter: "日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan"
-  
-  - name: 🇺🇲美国节点
-    type: url-test
-    <<: *health-check-general
-    filter: "美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States"
-  
-  - name: 🇨🇳台湾节点
-    type: url-test
-    <<: *health-check-general
-    filter: "台|新北|彰化|TW|Taiwan"
-  
-  - name: 🇸🇬狮城节点
-    type: url-test
-    <<: *health-check-general
-    filter: "新加坡|坡|狮城|SG|Singapore"
-###########################
-rule-providers-general: &rule-providers-general
-  type: http
-  behavior: classical
-  interval: 86400
-
-rule-providers:  
-  ♻️自动选择-FISH: {<<: *rule-providers-general, url: https://raw.githubusercontent.com/refined-fish/clash_rule_fish/refs/heads/main/Ruleset/♻️自动选择-FISH.yaml, path: ./providers/rule-provider_♻️自动选择-FISH.yaml}
-  🌐Direct-FISH: {<<: *rule-providers-general, url: https://raw.githubusercontent.com/refined-fish/clash_rule_fish/refs/heads/main/Ruleset/🌐Direct-FISH.yaml, path: ./providers/rule-provider_🌐Direct-FISH.yaml}
-  UnBan: {<<: *rule-providers-general, url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Providers/UnBan.yaml, path: ./providers/rule-provider_UnBan.yaml}
-  游戏下载cn: {<<: *rule-providers-general, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Game/GameDownloadCN/GameDownloadCN.list, path: ./providers/rule-provider_Download.yaml}
-  游戏下载: {<<: *rule-providers-general, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Game/GameDownload/GameDownload.list, path: ./providers/rule-provider_Download.yaml}
-  游戏加速: {<<: *rule-providers-general, url: https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/Script-pub/gamepub.yaml, path: ./providers/rule-provider_Download.yaml}
-  GoogleCN: {<<: *rule-providers-general, url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Providers/Ruleset/GoogleCN.yaml, path: ./providers/rule-provider_GoogleCN.yaml}
-  Bing: {<<: *rule-providers-general, url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Providers/Ruleset/Bing.yaml, path: ./providers/rule-provider_Bing.yaml}
-  Microsoft: {<<: *rule-providers-general, url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Providers/Ruleset/Microsoft.yaml, path: ./providers/rule-provider_Microsoft.yaml}
-  Pixiv: {<<: *rule-providers-general, url: https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/Script-pub/Pixivpub.list, path: ./providers/rule-provider_GoogleCN.yaml}
+#节点分组
+  - {name: 香港节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "港|HK|(?i)Hong", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/HK02.png }             
+  - {name: 日本节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "日|东京|JP|(?i)Japan", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/JP.png }
+  - {name: 台湾节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "台|湾|TW|(?i)Taiwan", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/TW.png }
+  - {name: 美国节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "美|US|(?i)States|American", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/US.png }
+  - {name: 狮城节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "新|坡|SG|(?i)Singapore", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/SG.png }
+  - {name: 韩国节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "KR|Korea|KOR|韩国|韩|韓", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/KR.png }
 ###########################################################################################################################
+# 分流规则 
+rule-providers:
+  #AdBlock:    {behavior: domain,    interval: 86400, format: text, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt ,                                          path: ./ruleset/anti-ad-clash.txt }
+  OpenAi:      {behavior: classical, interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml ,                      path: ./ruleset/OpenAi.yaml       }
+  Apple:       {behavior: classical, interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Classical.yaml ,              path: ./ruleset/Apple.yaml        }
+  Github:      {behavior: classical, interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml ,                      path: ./ruleset/Github.yaml       }
+  Microsoft:   {behavior: classical, interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml ,                path: ./ruleset/Microsoft.yaml    }
+  Google:      {behavior: classical, interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml ,                      path: ./ruleset/Google.yaml       }
+  Lan:         {behavior: classical, interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml ,                            path: ./ruleset/Lan.yaml          }
+  游戏下载cn:  {behavior: classical, interval: 86400, format: yaml, type: http, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Game/GameDownloadCN/GameDownloadCN.list ,     path: ./ruleset/Lan.yaml          }
+  游戏下载:    {behavior: classical, interval: 86400, format: yaml, type: http, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Game/GameDownload/GameDownload.list ,         path: ./ruleset/Lan.yaml          }
+  游戏加速:    {behavior: classical, interval: 86400, format: yaml, type: http, url: https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/Script-pub/gamepub.yaml ,                                      path: ./ruleset/Lan.yaml          }
+  telegram:    {behavior: classical, interval: 86400, format: yaml, type: http, url: https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/Script-pub/telegram.yaml ,                                     path: ./ruleset/Lan.yaml          }
+  Pixiv:       {behavior: classical, interval: 86400, format: yaml, type: http, url: https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/Script-pub/Pixivpub.list ,                                     path: ./ruleset/Lan.yaml          }
+
 rules:
-  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT  # 禁用QUIC
-  - RULE-SET,♻️自动选择-FISH,♻️自动选择
-  - RULE-SET,🌐Direct-FISH,DIRECT
-  - GEOIP,private,DIRECT,no-resolve
-  - GEOSITE,private,DIRECT
-  - RULE-SET,UnBan,DIRECT
-  - GEOSITE,category-ads-all,REJECT
-  - RULE-SET,游戏下载cn,DIRECT
-  - RULE-SET,游戏下载,♻️自动选择
-  - RULE-SET,游戏加速,♻️自动选择
-  - RULE-SET,Pixiv,♻️自动选择
-  - RULE-SET,GoogleCN,DIRECT
-  - GEOSITE,steam@cn,DIRECT
-  - RULE-SET,Bing,Ⓜ️微软Bing
-  - GEOSITE,onedrive,DIRECT
-  - RULE-SET,Microsoft,DIRECT
-  - GEOSITE,openai,🤖OpenAi
-  - GEOSITE,bahamut,🇨🇳台湾节点
-  - GEOSITE,telegram,📞电报消息
-  - GEOIP,telegram,📞电报消息,no-resolve
-  - GEOSITE,category-porn,♻️自动选择
-  - GEOSITE,gfw,♻️自动选择
-  - GEOSITE,cn,DIRECT
-  - GEOIP,cn,DIRECT,no-resolve
-  - MATCH,🐟漏网之鱼
+  #- RULE-SET,AdBlock,广告拦截
+  - RULE-SET,OpenAi,人工智能
+  - RULE-SET,Apple,苹果服务
+  - RULE-SET,Github,开源社区
+  - RULE-SET,Microsoft,微软服务
+  - RULE-SET,Google,谷歌应用
+  - RULE-SET,游戏下载cn,国内站点
+  - RULE-SET,游戏下载,谷歌应用
+  - RULE-SET,游戏加速,谷歌应用
+  - RULE-SET,telegram,谷歌应用
+  - RULE-SET,Pixiv,谷歌应用
+  - GEOIP,Lan,国内站点
+  - RULE-SET,Lan,国内站点
+  - GEOIP,CN,国内站点
+  - MATCH,漏网之鱼
