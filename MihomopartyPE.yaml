@@ -96,8 +96,6 @@ tun:
   enable: true
   # 可选： system/gvisor/mixed；
   stack: system
-  # dns劫持,一般设置为 any:53 即可, 即劫持所有53端口的udp流量
-  dns-hijack: [any:53]
   # 自动设置全局路由，自动将全局流量路由进 tun
   auto-route: true
   # 仅Linux有效，自动配置 iptables/nftables 以重定向 TCP 连接，需要auto-route: true
