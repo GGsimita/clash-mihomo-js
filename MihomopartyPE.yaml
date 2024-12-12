@@ -270,9 +270,9 @@ rule-providers:
   openai:
     <<: *DomainMrs
     url: https://ghp.ci/https://github.com/666OS/YYDS/raw/main/mihomo/rules/openai.mrs
-  telegram:
-    <<: *DomainMrs
-    url: https://ghp.ci/https://github.com/666OS/YYDS/raw/main/mihomo/rules/telegram.mrs
+ # telegram:
+ #   <<: *DomainMrs
+ #   url: https://ghp.ci/https://github.com/666OS/YYDS/raw/main/mihomo/rules/telegram.mrs
   twitter:
     <<: *DomainMrs
     url: https://ghp.ci/https://github.com/666OS/YYDS/raw/main/mihomo/rules/twitter.mrs
