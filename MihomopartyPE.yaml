@@ -22,8 +22,8 @@ FilterJP: &FilterJP '(?i)日|日本|🇯🇵|JP|Japan|NRT|HND|KIX|CTS|FUK'
 FilterKR: &FilterKR '(?i)韩|韩国|🇰🇷|韓|韓國|首尔|南朝鲜|KR|KOR|Korea|South'
 FilterUS: &FilterUS '(?i)美|美国|🇺🇸|US|USA|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD'
 FilterEU: &FilterEU '(?i)(🇧🇪|🇨🇿|🇩🇰|🇫🇮|🇫🇷|🇩🇪|🇮🇪|🇮🇹|🇱🇹|🇱🇺|🇳🇱|🇵🇱|🇸🇪|🇬🇧|CDG|FRA|AMS|MAD|BCN|FCO|MUC|BRU)'
-FilterOther: &FilterOther '^(?!.*(DIRECT|港|台|新|日|韩|香港|台湾|新加坡|日本|韩国|美国|🇭🇰|🇼🇸|🇹🇼|🇸🇬|🇯🇵|🇰🇷|🇺🇸|🇬🇧|🇦🇹|🇧🇪|🇨🇿|🇩🇰|🇫🇮|🇫🇷|🇩🇪|🇮🇪|🇮🇹|🇱🇹|🇱🇺|🇳🇱|🇵🇱|🇸🇪|HK|TW|SG|JP|KR|US|GB|CDG|FRA|AMS|MAD|BCN|FCO|MUC|BRU|HKG|TPE|TSA|KHH|SIN|XSP|NRT|HND|KIX|CTS|FUK|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD|LHR|LGW))'
-FilterAll: &FilterAll '^(?!.*(DIRECT|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author))'
+FilterOther: &FilterOther '^(?!.*(直连|港|台|新|日|韩|香港|台湾|新加坡|日本|韩国|美国|🇭🇰|🇼🇸|🇹🇼|🇸🇬|🇯🇵|🇰🇷|🇺🇸|🇬🇧|🇦🇹|🇧🇪|🇨🇿|🇩🇰|🇫🇮|🇫🇷|🇩🇪|🇮🇪|🇮🇹|🇱🇹|🇱🇺|🇳🇱|🇵🇱|🇸🇪|HK|TW|SG|JP|KR|US|GB|CDG|FRA|AMS|MAD|BCN|FCO|MUC|BRU|HKG|TPE|TSA|KHH|SIN|XSP|NRT|HND|KIX|CTS|FUK|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD|LHR|LGW))'
+FilterAll: &FilterAll '^(?!.*(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author))'
 # 锚点 - 策略组
 UrlTest: &UrlTest {type: url-test, interval: 60, tolerance: 20, lazy: true, url: 'https://www.gstatic.com/generate_204', disable-udp: false, timeout: 2000, max-failed-times: 3, hidden: true, include-all: true}
 FallBack: &FallBack {type: fallback, interval: 60, lazy: true, url: 'https://www.gstatic.com/generate_204', disable-udp: false, timeout: 2000, max-failed-times: 3, hidden: false}
@@ -31,11 +31,11 @@ LoadBalanceCH: &LoadBalanceCH {type: load-balance, interval: 60, lazy: true, url
 LoadBalanceCR: &LoadBalanceCR {type: load-balance, interval: 60, lazy: true, url: 'https://www.gstatic.com/generate_204', disable-udp: false, strategy: round-robin, timeout: 2000, max-failed-times: 3, hidden: true, include-all: true}
 
 # 锚点 - 选择组 
-SelectFB: &SelectFB {type: select, proxies: [故障转移, 香港策略, 台湾策略, 新加坡策略, 日本策略, 韩国策略, 美国策略, 欧盟策略, 冷门自选, 全球手动, 链式代理, DIRECT]}
-SelectHK: &SelectHK {type: select, proxies: [香港策略, 台湾策略, 新加坡策略, 日本策略, 韩国策略, 美国策略, 欧盟策略, 冷门自选, 全球手动, 链式代理, DIRECT]}
-SelectSG: &SelectSG {type: select, proxies: [新加坡策略, 故障转移, 香港策略, 台湾策略, 日本策略, 韩国策略, 美国策略, 欧盟策略, 冷门自选, 全球手动, 链式代理, DIRECT]}
-SelectUS: &SelectUS {type: select, proxies: [美国策略, 故障转移, 香港策略, 台湾策略, 新加坡策略, 日本策略, 韩国策略, 欧盟策略, 冷门自选, 全球手动, 链式代理, DIRECT]}
-SelectProxy: &SelectProxy {type: select, proxies: [默认代理, 故障转移, 香港策略, 台湾策略, 新加坡策略, 日本策略, 韩国策略, 美国策略, 欧盟策略, 冷门自选, 全球手动, 链式代理, DIRECT]}
+SelectFB: &SelectFB {type: select, proxies: [故障转移, 香港策略, 台湾策略, 新加坡策略, 日本策略, 韩国策略, 美国策略, 欧盟策略, 冷门自选, 全球手动, 链式代理, 直连]}
+SelectHK: &SelectHK {type: select, proxies: [香港策略, 台湾策略, 新加坡策略, 日本策略, 韩国策略, 美国策略, 欧盟策略, 冷门自选, 全球手动, 链式代理, 直连]}
+SelectSG: &SelectSG {type: select, proxies: [新加坡策略, 故障转移, 香港策略, 台湾策略, 日本策略, 韩国策略, 美国策略, 欧盟策略, 冷门自选, 全球手动, 链式代理, 直连]}
+SelectUS: &SelectUS {type: select, proxies: [美国策略, 故障转移, 香港策略, 台湾策略, 新加坡策略, 日本策略, 韩国策略, 欧盟策略, 冷门自选, 全球手动, 链式代理, 直连]}
+SelectProxy: &SelectProxy {type: select, proxies: [默认代理, 故障转移, 香港策略, 台湾策略, 新加坡策略, 日本策略, 韩国策略, 美国策略, 欧盟策略, 冷门自选, 全球手动, 链式代理, 直连]}
 # 锚点 - 规则集 
 DomainMrs: &DomainMrs {type: http, interval: 86400, behavior: domain, format: mrs}
 DomainText: &DomainText {type: http, interval: 86400, behavior: domain, format: text}
@@ -168,16 +168,16 @@ dns:
 
 # 本地自建节点组
 proxies:
-  - {name: DIRECT, type: direct, udp: true}
+  - {name: 直连, type: direct, udp: true}
 
 # 策略组 hidden: true,  隐藏参数
 proxy-groups:
   - {name: 默认代理, <<: *SelectFB, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Static.png}
-  - {name: 故障转移, <<: *FallBack, proxies: [香港策略, 台湾策略, 新加坡策略, 日本策略, 韩国策略, 美国策略, 欧盟策略, 全球手动, 冷门自选, DIRECT], icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ULB.png}
-  - {name: 漏网之鱼, type: select, proxies: [默认代理, DIRECT], icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png}
+  - {name: 故障转移, <<: *FallBack, proxies: [香港策略, 台湾策略, 新加坡策略, 日本策略, 韩国策略, 美国策略, 欧盟策略, 全球手动, 冷门自选, 直连], icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ULB.png}
+  - {name: 漏网之鱼, type: select, proxies: [默认代理, 直连], icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png}
   - {name: 全球手动, type: select, include-all: true, filter: *FilterAll, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Clubhouse.png}
   - {name: 冷门自选, type: select, include-all: true, filter: *FilterOther, icon: https://ghp.ci/https://raw.githubusercontent.com/Orz-3/mini/master/Color/XD.png}
-  - {name: 抖快书定位, type: select, proxies: [DIRECT, 香港策略, 台湾策略, 新加坡策略, 日本策略, 韩国策略, 美国策略, 欧盟策略], icon: https://ghp.ci/https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/ip.png}
+  - {name: 抖快书定位, type: select, proxies: [直连, 香港策略, 台湾策略, 新加坡策略, 日本策略, 韩国策略, 美国策略, 欧盟策略], icon: https://ghp.ci/https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/ip.png}
   - {name: ChatGPT, <<: *SelectSG, icon: https://ghp.ci/https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/ChatGPT-green.png}
   - {name: AI平台, <<: *SelectSG, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Bot.png}
 #  - {name: Emby, <<: *SelectProxy, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Emby.png}
@@ -212,7 +212,7 @@ proxy-groups:
   - {name: 链式代理, type: relay, proxies: [中转机, 落地机], icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TIDAL_1.png}
   - {name: 中转机, type: select, proxies: [香港策略, 台湾策略, 日本策略, 新加坡策略, 韩国策略, 美国策略, 欧盟策略, 冷门自选, 全球手动], icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Rocket.png}
   - {name: 落地机, type: select, include-all: true, filter: *FilterAll, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Domestic.png}
-  - {name: 国内网站, type: select, proxies: [DIRECT], icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png}
+  - {name: 国内网站, type: select, proxies: [直连], icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png}
   - {name: 国外网站, <<: *SelectProxy, icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Global.png}
   # 自动测速
   - {name: 香港自动, <<: *UrlTest, filter: *FilterHK, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png}
@@ -400,8 +400,8 @@ rules:
   # 小红书修改IP
   - DOMAIN-SUFFIX,edith.xiaohongshu.com,抖快书定位
   # 域名路由
-  - RULE-SET,fix-direct,DIRECT
-  - RULE-SET,游戏下载cn,DIRECT
+  - RULE-SET,fix-direct,直连
+  - RULE-SET,游戏下载cn,国内网站
   - RULE-SET,游戏下载,游戏平台
   - RULE-SET,游戏加速,游戏平台
   - RULE-SET,Pixiv,YouTube
