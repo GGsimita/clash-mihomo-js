@@ -178,19 +178,34 @@ dns:
 # HOSTS设置
 hosts:
   'mihomo.mihomo': 127.0.0.1
-
+#### 远程订阅集合 ####
+# 远程订阅组
+# 注意：请提供您的机场订阅链接，每个链接一行，并为每个机场命名，末尾的[A]为每个节点添加机场名称前缀，可自定义
+#proxy-providers:
+#  机场A: {<<: *p, url: '机场订阅地址', override: {additional-prefix: '[A] '}}
+#  机场B: {<<: *p, url: '机场订阅地址', override: {additional-prefix: '[B] '}}
 #### 策略组引用相关参数 ####
-pg: &pg {type: select, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点, DIRECT, REJECT]}
+# 锚点 - 节点筛选组 
+FilterHK: &FilterHK '(?i)港|香港|🇭🇰|HK|Hong|HKG'
+FilterTW: &FilterTW '(?i)台|台湾|🇼🇸|🇹🇼|TW|tai|TPE|TSA|KHH'
+FilterSG: &FilterSG '(?i)坡|新加坡|🇸🇬|SG|Sing|SIN|XSP'
+FilterJP: &FilterJP '(?i)日|日本|🇯🇵|JP|Japan|NRT|HND|KIX|CTS|FUK'
+FilterKR: &FilterKR '(?i)韩|韩国|🇰🇷|韓|韓國|首尔|南朝鲜|KR|KOR|Korea|South'
+FilterUS: &FilterUS '(?i)美|美国|🇺🇸|US|USA|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD'
+FilterEU: &FilterEU '(?i)(🇧🇪|🇨🇿|🇩🇰|🇫🇮|🇫🇷|🇩🇪|🇮🇪|🇮🇹|🇱🇹|🇱🇺|🇳🇱|🇵🇱|🇸🇪|🇬🇧|CDG|FRA|AMS|MAD|BCN|FCO|MUC|BRU)'
+FilterOther: &FilterOther '^(?!.*(直连|港|台|新|日|韩|香港|台湾|新加坡|日本|韩国|美国|🇭🇰|🇼🇸|🇹🇼|🇸🇬|🇯🇵|🇰🇷|🇺🇸|🇬🇧|🇦🇹|🇧🇪|🇨🇿|🇩🇰|🇫🇮|🇫🇷|🇩🇪|🇮🇪|🇮🇹|🇱🇹|🇱🇺|🇳🇱|🇵🇱|🇸🇪|HK|TW|SG|JP|KR|US|GB|CDG|FRA|AMS|MAD|BCN|FCO|MUC|BRU|HKG|TPE|TSA|KHH|SIN|XSP|NRT|HND|KIX|CTS|FUK|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD|LHR|LGW))'
+FilterAll: &FilterAll '^(?!.*(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author))'
+pg: &pg {type: select, proxies: [欧盟节点, 香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点, DIRECT, REJECT, 冷门自选]}
 # 订阅更新和延迟测试相关参数
-p: &p {type: http, interval: 3600, health-check: {enable: true, url: http://google/generate_204, interval: 60}}
+p: &p {type: http, interval: 3600, health-check: {enable: true, url: https://www.google.com/generate_204, interval: 60}}
 # 时延优选策略组：选取延迟最低节点
-url-test: &url-test {type: url-test, lazy: true, url: http://google/generate_204, interval: 300, tolerance: 30, include-all: true}
+url-test: &url-test {type: url-test, interval: 300, tolerance: 20, lazy: true, url: 'https://www.google.com/generate_204', disable-udp: false, timeout: 2000, max-failed-times: 5, hidden: true, include-all: true}
 # 手动选择策略组：手动选择想要的节点/策略组
 select: &select {type: select, include-all: true}
 # 故障回退策略组：策略组将按顺序选择你列表中第一个可用的节点
-fallback: &fallback {type: fallback, lazy: true, url: http://google/generate_204, interval: 300, include-all: true}
+fallback: &fallback {type: fallback, lazy: true, url: https://www.google.com/generate_204, interval: 300, include-all: true}
 # 负载均衡策略组：不同的请求将使用不同的代理节点
-load-balance: &load-balance {type: load-balance, lazy: true, strategy: consistent-hashing, url: http://google/generate_204, interval: 300, include-all: true}
+load-balance: &load-balance {type: load-balance, lazy: true, strategy: consistent-hashing, url: https://www.google.com/generate_204, interval: 300, include-all: true}
 # classical规则相关
 c: &c {type: http, behavior: classical, format: text, interval: 86400}
 # domain规则相关
@@ -201,25 +216,29 @@ i: &i {type: http, behavior: ipcidr, format: text, interval: 86400}
 proxy-groups:
 #分流分组
   - {name: 手动切换, <<: *select, proxies: [代理模式, 直连模式], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Bywave.png }
-  - {name: 手动策略, <<: *pg, proxies: [直连模式, 香港节点, 美国节点, 日本节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/GLaDOS.png }
-  - {name: 代理模式, <<: *pg, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Catnet.png }
-  - {name: 直连模式, <<: *pg, proxies: [DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Rookie.png }
+  - {name: 全球手动, <<: *select, filter: *FilterAll, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Clubhouse.png}
+  - {name: 代理模式, <<: *pg, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点, 欧盟节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Catnet.png }
+  - {name: 冷门自选, <<: *select, filter: *FilterOther, icon: https://ghp.ci/https://raw.githubusercontent.com/Orz-3/mini/master/Color/XD.png}
+
   #- {name: 广告拦截, type: select, proxies: [REJECT, DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Boom. png }
-  
-  
-#节点分组
-  - {name: 香港节点, <<: *url-test, filter: "港|HK|(?i)Hong", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/HK02.png }             
-  - {name: 日本节点, <<: *url-test,  filter: "日|东京|JP|(?i)Japan", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/JP.png }
-  - {name: 台湾节点, <<: *url-test,  filter: "台|湾|TW|(?i)Taiwan", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/TW.png }
-  - {name: 美国节点, <<: *url-test,  filter: "美|US|(?i)States|American", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/US.png }
-  - {name: 狮城节点, <<: *url-test,  filter: "新|坡|SG|(?i)Singapore", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/SG.png }
-  - {name: 韩国节点, <<: *url-test,  filter: "KR|Korea|KOR|韩国|韩|韓", icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/KR.png }
+
+#节点分组-隐藏自动
+  - {name: 链式代理, type: relay, proxies: [中转地点, 落地地点], icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TIDAL_1.png}
+  - {name: 中转地点, type: select, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点, 欧盟节点], icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Rocket.png}
+  - {name: 落地地点, type: select, include-all: true, filter: *FilterAll, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Domestic.png}
+  - {name: 香港节点, <<: *url-testt, filter: *FilterHK, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png}
+  - {name: 台湾节点, <<: *url-test, filter: *FilterTW, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png}
+  - {name: 狮城节点, <<: *url-test, filter: *FilterSG, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png}
+  - {name: 日本节点, <<: *url-test, filter: *FilterJP, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png}
+  - {name: 韩国节点, <<: *url-test, filter: *FilterKR, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png}
+  - {name: 美国节点, <<: *url-test, filter: *FilterUS, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png}
+  - {name: 欧盟节点, <<: *url-test, filter: *FilterEU, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png}
+
 ###########################################################################################################################
 # 分流规则 
 rule-providers:
   #AdBlock:    {behavior: domain,    interval: 86400, format: text, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt ,                                          path: ./ruleset/anti-ad-clash.txt }
   OpenAi:      {behavior: classical, interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml ,                      path: ./ruleset/OpenAi.yaml       }
-  Apple:       {behavior: classical, interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Classical.yaml ,              path: ./ruleset/Apple.yaml        }
   Github:      {behavior: classical, interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml ,                      path: ./ruleset/Github.yaml       }
   Microsoft:   {behavior: classical, interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml ,                path: ./ruleset/Microsoft.yaml    }
   Google:      {behavior: classical, interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml ,                      path: ./ruleset/Google.yaml       }
@@ -233,7 +252,6 @@ rule-providers:
 rules:
   #- RULE-SET,AdBlock,广告拦截
   - RULE-SET,OpenAi,代理模式
-  - RULE-SET,Apple,手动策略
   - RULE-SET,Github,代理模式
   - RULE-SET,Microsoft,代理模式
   - RULE-SET,Google,代理模式
