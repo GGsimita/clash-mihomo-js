@@ -255,9 +255,6 @@ rule-providers:
   Pixiv:
     <<: *ClassicalText
     url: https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/Script-pub/Pixivpub.list
-  telegram:
-    <<: *ClassicalYaml
-    url: https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/Script-pub/telegram.yaml
   fix-direct:
     <<: *ClassicalYaml
     url: https://ghp.ci/https://github.com/666OS/YYDS/raw/main/mihomo/rules/fix-direct.yaml
@@ -270,9 +267,9 @@ rule-providers:
   openai:
     <<: *DomainMrs
     url: https://ghp.ci/https://github.com/666OS/YYDS/raw/main/mihomo/rules/openai.mrs
- # telegram:
- #   <<: *DomainMrs
- #   url: https://ghp.ci/https://github.com/666OS/YYDS/raw/main/mihomo/rules/telegram.mrs
+  telegram:
+    <<: *ClassicalYaml
+    url: https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/Script-pub/telegram.yaml
   twitter:
     <<: *DomainMrs
     url: https://ghp.ci/https://github.com/666OS/YYDS/raw/main/mihomo/rules/twitter.mrs
@@ -376,9 +373,9 @@ rule-providers:
   twitter_ip:
     <<: *IPcidrMrs
     url: https://ghp.ci/https://github.com/666OS/YYDS/raw/main/mihomo/rules/twitter_ip.mrs
- # telegram_ip:
- #   <<: *IPcidrMrs
- #   url: https://ghp.ci/https://github.com/666OS/YYDS/raw/main/mihomo/rules/telegram_ip.mrs
+  telegram_ip:
+    <<: *IPcidrMrs
+    url: https://ghp.ci/https://github.com/666OS/YYDS/raw/main/mihomo/rules/telegram_ip.mrs
   private_ip:
     <<: *IPcidrMrs
     url: https://ghp.ci/https://github.com/666OS/YYDS/raw/main/mihomo/rules/private_ip.mrs
@@ -448,7 +445,7 @@ rules:
   - RULE-SET,google_ip,谷歌服务,no-resolve
   - RULE-SET,netflix_ip,NetFlix,no-resolve
   - RULE-SET,twitter_ip,Twitter,no-resolve
-  # - RULE-SET,telegram_ip,Telegram,no-resolve
+  - RULE-SET,telegram_ip,Telegram,no-resolve
   - RULE-SET,cn_ip,国内网站,no-resolve
   - MATCH,漏网之鱼
 ###########################################################################################################################
