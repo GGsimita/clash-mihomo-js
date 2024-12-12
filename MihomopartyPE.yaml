@@ -195,9 +195,10 @@ FilterUS: &FilterUS '(?i)美|美国|🇺🇸|US|USA|JFK|LAX|ORD|ATL|DFW|SFO|MIA|
 FilterEU: &FilterEU '(?i)(🇧🇪|🇨🇿|🇩🇰|🇫🇮|🇫🇷|🇩🇪|🇮🇪|🇮🇹|🇱🇹|🇱🇺|🇳🇱|🇵🇱|🇸🇪|🇬🇧|CDG|FRA|AMS|MAD|BCN|FCO|MUC|BRU)'
 FilterOther: &FilterOther '^(?!.*(直连|港|台|新|日|韩|香港|台湾|新加坡|日本|韩国|美国|🇭🇰|🇼🇸|🇹🇼|🇸🇬|🇯🇵|🇰🇷|🇺🇸|🇬🇧|🇦🇹|🇧🇪|🇨🇿|🇩🇰|🇫🇮|🇫🇷|🇩🇪|🇮🇪|🇮🇹|🇱🇹|🇱🇺|🇳🇱|🇵🇱|🇸🇪|HK|TW|SG|JP|KR|US|GB|CDG|FRA|AMS|MAD|BCN|FCO|MUC|BRU|HKG|TPE|TSA|KHH|SIN|XSP|NRT|HND|KIX|CTS|FUK|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD|LHR|LGW))'
 FilterAll: &FilterAll '^(?!.*(直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author))'
-pg: &pg {type: select, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点, 欧盟节点, 冷门自选, DIRECT, REJECT]}
+pg: &pg {type: select, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点, 欧盟节点, 冷门自选, 全球手动, DIRECT, REJECT]}
 # 订阅更新和延迟测试相关参数
-p: &p {type: http, interval: 3600, health-check: {enable: true, url: https://www.google.com/generate_204, interval: 60}}
+p: &p {type: http, interval: 86400, health-check: {enable: true, url: 'https://www.google.com/generate_204', interval: 300}, filter: '^(?!.*(群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author))'}
+#{type: http, interval: 3600, health-check: {enable: true, url: https://www.google.com/generate_204, interval: 60}}
 # 时延优选策略组：选取延迟最低节点
 url-test: &url-test {type: url-test, interval: 300, tolerance: 20, lazy: true, url: 'https://www.google.com/generate_204', disable-udp: false, timeout: 2000, max-failed-times: 5, hidden: true, include-all: true}
 # 手动选择策略组：手动选择想要的节点/策略组
@@ -223,9 +224,6 @@ proxy-groups:
   #- {name: 广告拦截, type: select, proxies: [REJECT, DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Boom. png }
 
 #节点分组-隐藏自动
-  - {name: 链式代理, type: relay, proxies: [中转地点, 落地地点], icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TIDAL_1.png}
-  - {name: 中转地点, type: select, proxies: [香港节点, 美国节点, 日本节点, 台湾节点, 狮城节点, 韩国节点, 欧盟节点], icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Rocket.png}
-  - {name: 落地地点, type: select, include-all: true, filter: *FilterAll, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Domestic.png}
   - {name: 香港节点, <<: *url-testt, filter: *FilterHK, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png}
   - {name: 台湾节点, <<: *url-test, filter: *FilterTW, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png}
   - {name: 狮城节点, <<: *url-test, filter: *FilterSG, icon: https://ghp.ci/https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png}
@@ -260,7 +258,6 @@ rules:
   - RULE-SET,游戏加速,代理模式
   - RULE-SET,telegram,代理模式,no-resolve
   - RULE-SET,Pixiv,代理模式
-  - DOMAIN-REGEX,^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$,手动切换
   - GEOIP,Lan,DIRECT
   - RULE-SET,Lan,DIRECT
   - GEOIP,CN,DIRECT
