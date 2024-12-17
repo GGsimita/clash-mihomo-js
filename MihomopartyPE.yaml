@@ -59,14 +59,14 @@ socks-port: 7891
 mixed-port: 7892
 redir-port: 7893
 tproxy-port: 7894
-unified-delay: true
+unified-delay: false
 tcp-concurrent: true
 find-process-mode: 'off'
 global-client-fingerprint: chrome
 allow-lan: true
 bind-address: '*'
 mode: rule
-log-level: warning
+log-level: error
 ipv6: true
 udp: true
 keep-alive-idle: 600
@@ -75,12 +75,22 @@ profile:
   store-selected: true
   store-fake-ip: true
 
-external-controller: 0.0.0.0:9090
-external-ui-url: https://ghp.ci/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip
-external-ui: ui
-external-ui-name: metacubexd
-secret: 123456
-
+external-controller-tls: 127.0.0.1:9090
+# external-controller: 0.0.0.0:9090
+# external-ui-url: https://ghp.ci/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip
+# external-ui: ui
+# external-ui-name: metacubexd
+# secret: 123456
+hosts:
+    'miwifi.com': 192.168.31.1
+    'steamcommunity.com': 127.0.0.1
+    'www.steamcommunity.com': 127.0.0.1
+    'store.steampowered.com': 127.0.0.1
+    'checkout.steampowered.com': 127.0.0.1
+    'api.steampowered.com': 127.0.0.1
+    'help.steampowered.com': 127.0.0.1
+    'login.steampowered.com': 127.0.0.1
+    'store.akamai.steamstatic.com': 127.0.0.1
 # 自定 GEO 下载地址
 geox-url:
   # geosite: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
