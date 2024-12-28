@@ -260,8 +260,8 @@ rule-providers:
     <<: *ClassicalText
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Game/GameDownload/GameDownload.list
   游戏加速:
-    <<: *ClassicalYaml
-    url: https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/Script-pub/gamepub.yaml
+    <<: *ClassicalText
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Game/Game.list
   Pixiv:
     <<: *ClassicalText
     url: https://raw.githubusercontent.com/GGsimita/clash-mihomo-js/refs/heads/main/Script-pub/Pixivpub.list
