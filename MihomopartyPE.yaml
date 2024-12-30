@@ -72,5 +72,6 @@ rules:
   - RULE-SET,Download,DIRECT
     # 命运centipete
   - DOMAIN-SUFFIX,cdn.deadorbit.net,游戏平台
+  - DOMAIN-SUFFIX,app.destinyitemmanager.com,游戏平台
   - GEOIP,CN,DIRECT
   - MATCH,兜底分流
