@@ -5,7 +5,7 @@
 # @howtouse          主界面添加本配置[覆写]，然后使用内置的[SubStore]添加机场，之后去[订阅管理]，在配置的[编辑信息]中绑定机场订阅，开启系统代理即可使用
 # @Thanks            @blackmatrix7, @Fndroid, @Anti, @Orz-3, @Koolson, @soffchen, @ACL4SSR, @Cats-Team
 # @ConfigVersion     1.0.15
-# @ConfigUrl         https://github.com/ddgksf2013/Profile/raw/master/MihomoParty.yaml
+# 分流规则            https://github.com/blackmatrix7/ios_rule_script
 #==========================================
 
 proxy-groups:
@@ -50,7 +50,7 @@ rule-providers:
   Lan:         {behavior: classical, interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml ,                            path: ./ruleset/Lan.yaml          }
   Download:    {behavior: classical, interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Download/Download.yaml ,                  path: ./ruleset/Download.yaml     }
   ChinaIP:     {behavior: ipcidr,    interval: 86400, format: yaml, type: http, url: https://ghp.ci/https://raw.githubusercontent.com/soffchen/GeoIP2-CN/release/clash-rule-provider.yml ,                                     path: ./ruleset/ChinaIP.yaml      }
-
+  Twitch:     {behavior: classical, interval: 86400, format: yaml, type: http, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Twitch/Twitch.yaml ,                    path: ./ruleset/Twitter.yaml      }
 # 分流Policy 
 rules:
   - RULE-SET,AdBlock,AdBlock
@@ -64,6 +64,7 @@ rules:
   - RULE-SET,Google,谷歌服务
   - RULE-SET,Telegram,电报消息
   - RULE-SET,Twitter,全球加速
+  - RULE-SET,Twitch,全球加速
   - RULE-SET,Game,游戏平台
   - RULE-SET,ProxyLite,全球加速
   - RULE-SET,ChinaIP,DIRECT
